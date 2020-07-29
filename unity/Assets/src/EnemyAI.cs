@@ -5,16 +5,16 @@ using System.Collections;
 namespace game
 {
 
-public enum AIState
-{
-  Spawn,
-  Move,
-  Attack,
-  Die
-}
-
 public class EnemyAI : MonoBehaviour 
 {
+  public enum AIState
+  {
+    Spawn,
+    Move,
+    Attack,
+    Die
+  }
+
   StateMachine<AIState> fsm;
 
   NavMeshAgent agent;
@@ -48,17 +48,17 @@ public class EnemyAI : MonoBehaviour
     state.ai = this;
     fsm.Add(state.GetState(), state.OnEnter, state.OnUpdate, state.OnExit);
   }
-	
-	void Awake()
-	{
-    Init();
-	}
 
-	void Update()
-	{
+  void Awake()
+  {
+    Init();
+  }
+
+  void Update()
+  {
     if(fsm != null)
       fsm.Update();
-	}
+  }
 
   void OnDamaged()
   {

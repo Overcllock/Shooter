@@ -22,7 +22,10 @@ public class CameraController : MonoBehaviour
 
   void Start()
   {
-    player = GameObject.FindGameObjectWithTag("Player").transform;
+    var player_go = GameObject.FindGameObjectWithTag("Player");
+    Error.Verify(player_go != null);
+
+    player = player_go.transform;
   }
 
   void LateUpdate()
