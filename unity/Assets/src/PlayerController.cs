@@ -6,11 +6,11 @@ namespace game
 
 public class PlayerController : MonoBehaviour 
 {
-	public float move_speed = 7.0f;
+  public float move_speed = 7.0f;
   public float rotate_speed = 10.0f;
   public float shoot_delay = 0.25f;
 
-	CharacterController cctl;
+  CharacterController cctl;
   CombatUnit player;
   Animator animator;
   Camera cam;
@@ -24,10 +24,10 @@ public class PlayerController : MonoBehaviour
   {
     get { return cctl != null && cctl.velocity.magnitude > 0.1f; }
   }
-	
-	void Awake()
-	{
-		cctl = GetComponent<CharacterController>();
+
+  void Awake()
+  {
+    cctl = GetComponent<CharacterController>();
     player = GetComponent<CombatUnit>();
     animator = GetComponent<Animator>();
     cam = Camera.main;
@@ -39,22 +39,22 @@ public class PlayerController : MonoBehaviour
     StopEffects();
 
     gameObject.tag = "Player";
-	}
+  }
 
   void OnEnable()
   {
     player.OnDie.AddListener(OnDie);
   }
 
-	void Update()
-	{
+  void Update()
+  {
     if(!player.is_alive)
       return;
 
     ProcessMovement();
     ProcessAnimate();
     ProcessShooting();
-	}
+  }
 
   void ProcessMovement()
   {
@@ -71,12 +71,12 @@ public class PlayerController : MonoBehaviour
 
     var input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-		var direction = new Vector3(input.x, 0, input.y);
-		direction = cam.transform.TransformDirection(direction);
-		direction = new Vector3(direction.x, 0, direction.z);
+    var direction = new Vector3(input.x, 0, input.y);
+    direction = cam.transform.TransformDirection(direction);
+    direction = new Vector3(direction.x, 0, direction.z);
 
-		if(Mathf.Abs(input.y) > 0 || Mathf.Abs(input.x) > 0)
-			transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction), rotate_speed * Time.deltaTime);
+    if(Mathf.Abs(input.y) > 0 || Mathf.Abs(input.x) > 0)
+      transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction), rotate_speed * Time.deltaTime);
 
     float speed = move_speed * input.normalized.magnitude;
     cctl.Move(transform.forward * speed * Time.deltaTime);
@@ -123,13 +123,13 @@ public class PlayerController : MonoBehaviour
   void PlayEffects()
   {
     foreach(var effect in effects)
-      effect.Play(true);
+    effect.Play(true);
   }
 
   void StopEffects()
   {
     foreach(var effect in effects)
-      effect.Stop(true);
+    effect.Stop(true);
   }
 
   void OnDie()
