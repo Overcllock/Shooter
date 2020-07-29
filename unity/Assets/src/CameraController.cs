@@ -39,4 +39,4 @@ public class CameraController : MonoBehaviour
 	}
 }
 
-} //namespace game
+} //namespace game 
